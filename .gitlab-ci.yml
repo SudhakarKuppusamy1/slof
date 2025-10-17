@@ -1,0 +1,16 @@
+before_script:
+ - apt-get update -qq
+ - apt-get install -y --no-install-recommends gcc-powerpc64-linux-gnu make
+
+board-js2x:
+ script:
+ - make -j$(nproc) js2x CROSS=powerpc64-linux-gnu-
+
+board-qemu:
+ script:
+ - apt-get install -y --no-install-recommends qemu-system-ppc seabios
+ - make -j$(nproc) qemu CROSS=powerpc64-linux-gnu-
+ - qemu-system-ppc64 -nographic -bios boot_rom.bin
+    -prom-env 'use-nvramrc?=true' -prom-env 'nvramrc=." SUCCESS" cr halt'
+    | tee log.txt
+ - grep -q SUCCESS log.txt
