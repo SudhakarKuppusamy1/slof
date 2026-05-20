@@ -243,7 +243,7 @@ copy_flash(short mode)
 	}
 	printf("\r\nErasing Flash: 0x        ");
 
-	for (blockCnt = 0; blockCnt <= FLASHSIZE; blockCnt += FLASH_BLOCK_SIZE) {
+	for (blockCnt = 0; blockCnt < FLASHSIZE; blockCnt += FLASH_BLOCK_SIZE) {
 		print_block(blockCnt);
 		erase_flash_block(blockCnt);
 	}
@@ -251,7 +251,7 @@ copy_flash(short mode)
 	progress = FLASHSIZE / 38;
 	print_writing();
 
-	for (blockCnt = 0; blockCnt <= FLASHSIZE; blockCnt += BUFSIZE) {
+	for (blockCnt = 0; blockCnt < FLASHSIZE; blockCnt += BUFSIZE) {
 		uint64_t *srcPtr = (uint64_t *)(flash + blockCnt);
 		uint64_t *destPtr = (uint64_t *)manage_flash_buffer;
 		uint64_t cnt = BUFSIZE / 8;
