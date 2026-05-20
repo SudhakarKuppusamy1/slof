@@ -111,7 +111,7 @@ elf_load_segments32(void *file_addr, signed long offset,
 	int i;
 
 	/* loop e_phnum times */
-	for (i = 0; i <= ehdr->e_phnum; i++) {
+	for (i = 0; i < ehdr->e_phnum; i++) {
 		/* PT_LOAD ? */
 		if (phdr->p_type == 1) {
 			if (phdr->p_paddr != phdr->p_vaddr) {
@@ -147,7 +147,7 @@ elf_get_base_addr32(void *file_addr)
 	int i;
 
 	/* loop e_phnum times */
-	for (i = 0; i <= ehdr->e_phnum; i++) {
+	for (i = 0; i < ehdr->e_phnum; i++) {
 		/* PT_LOAD ? */
 		if (phdr->p_type == 1) {
 			return phdr->p_paddr;
@@ -190,7 +190,7 @@ elf_byteswap_header32(void *file_addr)
 	phdr = get_phdr32(file_addr);
 
 	/* loop e_phnum times */
-	for (i = 0; i <= ehdr->e_phnum; i++) {
+	for (i = 0; i < ehdr->e_phnum; i++) {
 		bswap_32p(&phdr->p_type);
 		bswap_32p(&phdr->p_offset);
 		bswap_32p(&phdr->p_vaddr);

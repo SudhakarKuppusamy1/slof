@@ -248,7 +248,7 @@ elf_load_segments64(void *file_addr, signed long offset,
 	int i;
 
 	/* loop e_phnum times */
-	for (i = 0; i <= ehdr->e_phnum; i++) {
+	for (i = 0; i < ehdr->e_phnum; i++) {
 		/* PT_LOAD ? */
 		if (phdr->p_type == PT_LOAD) {
 			if (phdr->p_paddr != phdr->p_vaddr) {
@@ -284,7 +284,7 @@ elf_get_base_addr64(void *file_addr)
 	int i;
 
 	/* loop e_phnum times */
-	for (i = 0; i <= ehdr->e_phnum; i++) {
+	for (i = 0; i < ehdr->e_phnum; i++) {
 		/* PT_LOAD ? */
 		if (phdr->p_type == PT_LOAD) {
 			/* Return base address */
@@ -420,7 +420,7 @@ elf_relocate64(void *file_addr, signed long offset)
 	int i;
 
 	/* loop over all segments */
-	for (i = 0; i <= ehdr->e_shnum; i++) {
+	for (i = 0; i < ehdr->e_shnum; i++) {
 		/* Skip if it is not a relocation segment */
 		if (shdrs[i].sh_type == SHT_RELA) {
 			elf_apply_all_rela64(file_addr, offset, shdrs, i);
@@ -452,7 +452,7 @@ elf_byteswap_header64(void *file_addr)
 	phdr = get_phdr64(file_addr);
 
 	/* loop e_phnum times */
-	for (i = 0; i <= ehdr->e_phnum; i++) {
+	for (i = 0; i < ehdr->e_phnum; i++) {
 		bswap_32p(&phdr->p_type);
 		bswap_32p(&phdr->p_flags);
 		bswap_64p(&phdr->p_offset);
