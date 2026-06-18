@@ -14,3 +14,8 @@ board-qemu:
     -prom-env 'use-nvramrc?=true' -prom-env 'nvramrc=." SUCCESS" cr halt'
     | tee log.txt
  - grep -q SUCCESS log.txt
+ artifacts:
+  when: on_success
+  expire_in: 3 months
+  paths:
+  - boot_rom.bin
