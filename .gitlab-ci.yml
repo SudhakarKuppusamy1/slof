@@ -9,7 +9,12 @@ board-js2x:
 board-qemu:
  script:
  - apt-get install -y --no-install-recommends qemu-system-ppc seabios
- - make -j$(nproc) qemu CROSS=powerpc64-linux-gnu-
+ - export CROSS=powerpc64-linux-gnu-
+ - if [ "x$CI_COMMIT_TAG" != "x" ]; then
+     make -j$(nproc) qemu RELEASE="$CI_COMMIT_TAG" ;
+   else
+      make -j$(nproc) qemu ;
+   fi
  - qemu-system-ppc64 -nographic -bios boot_rom.bin
     -prom-env 'use-nvramrc?=true' -prom-env 'nvramrc=." SUCCESS" cr halt'
     | tee log.txt
