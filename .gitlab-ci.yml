@@ -16,6 +16,7 @@ board-qemu:
       make -j$(nproc) qemu ;
    fi
  - qemu-system-ppc64 -nographic -bios boot_rom.bin
+    -M pseries,cap-cfpc=broken,cap-ibs=broken,cap-sbbc=broken,cap-ccf-assist=off
     -prom-env 'use-nvramrc?=true' -prom-env 'nvramrc=." SUCCESS" cr halt'
     | tee log.txt
  - grep -q SUCCESS log.txt
